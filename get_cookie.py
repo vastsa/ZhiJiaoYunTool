@@ -22,10 +22,6 @@ data = {
 }
 html = requests.post(url=url, headers=headers, data=data)
 html_json = html.json()
-cookie = html.cookies
-cookies = requests.utils.dict_from_cookiejar(cookie)
-with open('cookies', 'wb') as f:
-    pickle.dump(html.cookies, f)
 # 将配置信息写入配置文件
 config_writer = configparser.ConfigParser()  # 实例化配置写入
 config_writer.add_section('information')  # 创建information选择器

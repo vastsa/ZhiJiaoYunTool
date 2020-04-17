@@ -47,7 +47,7 @@ def qiandao(signId, openClassId):
         'classState': 2,
         'openClassId': openClassId
     }
-    requests.post(url=qdurl, headers=headers, cookies=cookie, data=qddata)
+    requests.post(url=qdurl, headers=headers, data=qddata)
 
 
 # 获取课中活动
@@ -61,8 +61,8 @@ def get_kecheng():
         'classState': '2',
         'openClassId': openClassId
     }
-    for i in range(180):
-        html = requests.post(url=url, headers=headers, data=data, cookies=cookie).json()['dataList']
+    for j in range(180):
+        html = requests.post(url=url, headers=headers, data=data).json()['dataList']
         js = 0
         for i in range(len(html)):
             datatype = html[i]['DataType']
@@ -86,16 +86,14 @@ def get_kecheng():
 
 
 # 先读取本地cookie，如果失败则在线登陆
-if courses != 0:
-    try:
-        with open('cookies', 'rb') as f:
-            cookie = pickle.load(f)
-        get_kecheng()
-    except:
-        print("首次请登陆：")
-        from get_cookie import cookies
-
-        cookie = cookies
-        get_kecheng()
-else:
-    print("今天放假，好好休息")
+def main():
+    if courses != 0:
+        try:
+            stuid = config['information']['userid']
+            get_kecheng()
+        except:
+            print("首次请登陆：")
+            import get_cookie
+            get_kecheng()
+    else:
+        print("今天放假，好好休息")
