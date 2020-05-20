@@ -1,22 +1,14 @@
 # 获取学生信息
 import configparser
-
 import requests
-
 from Login import login
 
 config = configparser.ConfigParser()
-try:
-    config.read('config.info')
-    stuId = config['information']['userid']
-except:
-    login()
-    config.read('config.info')
-    stuId = config['information']['userid']
+
 info_url = 'https://zjyapp.icve.com.cn/newmobileapi/mobilelogin/getUserInfo'
 
 
-def get_info():
+def get_info(stuId=''):
     data = {
         'userId': stuId
     }
@@ -25,7 +17,9 @@ def get_info():
         print("系统检测到您是第一次登陆或者信息已失效，所以请重新登陆！")
 
         login()
-        get_info()
+        config.read('config.info')
+        stuId = config['information']['userid']
+        get_info(stuId)
     else:
         return print_info(html)
 
