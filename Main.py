@@ -1,4 +1,5 @@
 from Get_Stu_Info import get_info
+from Retroactive import main as buqian
 from Sign_Auto import main as autosign
 
 stuid = get_info()
@@ -9,3 +10,5 @@ print("【1】职教云签到改命功能")
 tool = input("请输入功能序号：")
 if tool == '0':
     autosign(stuid)
+else:
+    buqian(stuid)

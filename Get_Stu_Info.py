@@ -1,11 +1,18 @@
 # 获取学生信息
 import configparser
+
 import requests
+
 from Login import login
 
 config = configparser.ConfigParser()
-config.read('config.info')
-stuId = config['information']['userid']
+try:
+    config.read('config.info')
+    stuId = config['information']['userid']
+except:
+    login()
+    config.read('config.info')
+    stuId = config['information']['userid']
 info_url = 'https://zjyapp.icve.com.cn/newmobileapi/mobilelogin/getUserInfo'
 
 
