@@ -1,6 +1,28 @@
 <component name="InspectionProjectProfileManager">
   <profile version="1.0">
     <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="14">
+            <item index="0" class="java.lang.String" itemvalue="alive-progress" />
+            <item index="1" class="java.lang.String" itemvalue="autopep8" />
+            <item index="2" class="java.lang.String" itemvalue="lazy-object-proxy" />
+            <item index="3" class="java.lang.String" itemvalue="opencv-python" />
+            <item index="4" class="java.lang.String" itemvalue="mccabe" />
+            <item index="5" class="java.lang.String" itemvalue="pylint" />
+            <item index="6" class="java.lang.String" itemvalue="wrapt" />
+            <item index="7" class="java.lang.String" itemvalue="isort" />
+            <item index="8" class="java.lang.String" itemvalue="pycodestyle" />
+            <item index="9" class="java.lang.String" itemvalue="astroid" />
+            <item index="10" class="java.lang.String" itemvalue="numpy" />
+            <item index="11" class="java.lang.String" itemvalue="pycryptodomex" />
+            <item index="12" class="java.lang.String" itemvalue="cryptography" />
+            <item index="13" class="java.lang.String" itemvalue="crypto" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
     <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="ignoredErrors">
         <list>
