@@ -10,3 +10,6 @@
 ##### Get_Stu_Info.py：获取个人信息
 ##### Retroactive.py：逆天改命之补签
 ##### Sign_Auto.py：签到监控
+
+来一张截图纪念一下
+![pycharm](pic/hh.png)
