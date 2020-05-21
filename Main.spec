@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['Main.py'],
-             pathex=['Get_Class_Activity.py', 'Get_Day_Course.py', 'Get_Stu_Info.py', 'Login.py', 'Retroactive.py', 'Sign_Auto.py', 'E:\\Python\\requests\\ZJY'],
+             pathex=['Get_All_Course.py', 'Get_Class_Activity.py', 'Get_Day_Course.py', 'Get_Homework_Grade.py', 'Get_Homework_List.py', 'Get_Stu_Info.py', 'Homework_Time.py', 'Login.py', 'Re_Grade.py', 'Retroactive.py', 'Sign_Auto.py', 'E:\\Python\\requests\\ZJY'],
              binaries=[],
              datas=[],
              hiddenimports=[],
