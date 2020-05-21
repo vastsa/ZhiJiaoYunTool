@@ -28,7 +28,7 @@ def get_info():
         login()
         config.read('config.info')
         stuId = config['information']['userid']
-        get_info(stuId)
+        get_info()
     else:
         return print_info(html)
 
