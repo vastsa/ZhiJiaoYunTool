@@ -11,6 +11,9 @@ def retime(time, teaid, HomeWorkId, CourseOpenId, OpenClassId):
     }
     html = requests.post(url=url, data=data).json()
     print(f"{html['msg']}")
+    print(f"返回菜单")
+    import Main
+    Main
 
 
 def main(stuId):
