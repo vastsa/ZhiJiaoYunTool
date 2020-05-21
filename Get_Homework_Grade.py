@@ -13,6 +13,7 @@ def get_homework_grade(openClassId, homeworkId, stuId, homeworkTermTimeId):
     if html['code'] == 1:
         return html['stuHomeworkList']
     else:
+        print(html)
         return 0
 
 
