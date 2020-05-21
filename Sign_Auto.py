@@ -31,8 +31,8 @@ def main(stuid):
         js = 0
         # 反复监控，是否需要存在已开启的签到
         for i in range(18000):
-            for i in range(len(activities)):
-                activity = activities[i]
+            for j in range(len(activities)):
+                activity = activities[j]
                 datatype = activity['DataType']
                 if datatype == '签到':
                     state = activity['Id']
