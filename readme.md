@@ -20,5 +20,5 @@
 #### Retroactive 补签
 #### Get_All_Course 获取所有课程
 #### Re_Grade.py 修改分数
-来一张截图纪念一下
+2020年5月20日来一张截图纪念一下
 ![pycharm](pic/hh.png)
