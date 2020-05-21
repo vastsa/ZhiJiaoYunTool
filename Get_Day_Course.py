@@ -11,7 +11,8 @@ def get_course(stuid, today=time.strftime("%Y-%m-%d", time.localtime())):
         'stuId': stuid,
         'faceDate': today  # 查询当天的课程的日期
     }
-    html = requests.post(url=get_activity_url, data=data).json()['dataList']
+    html = requests.post(url=get_activity_url, data=data).json()
+    html = html['dataList']
     courses = len(html)  # 获取课程数量
     if courses == 0:  # 如果无课，返回no，否则返回课程信息
         return 'no'
@@ -34,5 +35,5 @@ def get_course(stuid, today=time.strftime("%Y-%m-%d", time.localtime())):
 
 
 if __name__ == '__main__':
-    stuid = 'midwaoaqv6xmebkkd0czew'
+    stuid = ''
     print(get_course(stuid))

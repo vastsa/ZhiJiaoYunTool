@@ -18,7 +18,7 @@ def get_homework_list(stuId, openClassId, courseOpenId):
 
 
 if __name__ == '__main__':
-    openClassId = 'pkcravurd4zfoouox04m5a'
-    courseOpenId = '4s4gar6qiank7g3k15kiyw'
-    stuId = 'midwaoaqv6xmebkkd0czew'
+    openClassId = ''
+    courseOpenId = ''
+    stuId = ''
     get_homework_list(stuId, openClassId, courseOpenId)
