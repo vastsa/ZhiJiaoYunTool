@@ -1,26 +1,21 @@
 import requests
 
 from Get_All_Course import get_all_course
-from Get_Homework_Grade import get_homework_grade
 from Get_Homework_List import get_homework_list
 
 
-def re_grade(teaId, stuid, getScore):
-    url = 'https://zjyapp.icve.com.cn/newmobileapi/homework/readFileHomework'
+def retime(time, teaid, HomeWorkId, CourseOpenId, OpenClassId):
+    url = 'https://zjyapp.icve.com.cn/newmobileapi/coursehomework/saveHkTimeByOpenClass'
     data = {
-        'teaId': teaId,
-        'homeworkStuId': stuid,
-        'getScore': getScore,
-        'sourceType': '2',
+        'data': f'{{"CreatorId":"{teaid}","CourseOpenId":"{CourseOpenId}","HomeWorkId":"{HomeWorkId}","StuEndDate":"{time}","OpenClassId":"{OpenClassId}"}}'
     }
     html = requests.post(url=url, data=data).json()
-    if html['code'] == 1:
-        print("修改成功")
-    else:
-        print("修改失败")
+    print(f"{html['msg']}")
 
 
-def Main(stuId):
+def main(stuId):
+    time = input("请输入结束时间（格式2020-5-21)：")
+    teaid = input("请输入教师ID（获取方法：www.lanol.cn)：")
     allcourse = get_all_course(stuId)
     if allcourse == 0:
         print("获取失败")
@@ -42,18 +37,10 @@ def Main(stuId):
             index += 1
         homework_index = int(input("请输入数字序号：")) - 1
         homeworkId = homeworklist[homework_index]['homeworkId']
-        homeworkTermTimeId = homeworklist[homework_index]['homeworkTermTimeId']
-        grades = get_homework_grade(openClassId, homeworkId, stuId, homeworkTermTimeId)
-        index = 1
-        for i in grades:
-            print(f"【{index}】时间：{i['dateCreated']}\t分数{i['getScore']}")
-            index += 1
-        target = int(input("请输入要修改的序号：")) - 1
-        homeworkStuId = grades[target]['homeworkStuId']
-        getScore = int(input("请输入目标分数（整数）："))
-        Teaid = input("请输入教师ID（获取方法见www.lanol.cn)：")
-        re_grade(Teaid, homeworkStuId, getScore)
+        retime(time, teaid, homeworkId, courseOpenId, openClassId)
 
 
 if __name__ == '__main__':
-    Main('')
+    retime('2020-4-7', '', '', '',
+           '')
+    main('')
