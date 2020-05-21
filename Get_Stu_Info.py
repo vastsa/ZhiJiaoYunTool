@@ -38,7 +38,7 @@ def print_info(html):
     name = data['displayName']
     school = data['schoolName']
     QQ = data['QQ']
-    print(f"姓名\t\t\t学校\t\t\t\tQQ\n{name}\t{school}\t{QQ}")
+    print(f"姓名\t\t学校\t\tQQ\n{name}\t{school}\t{QQ}")
     return data['Id']
 
 

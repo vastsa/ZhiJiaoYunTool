@@ -18,8 +18,8 @@ def sign(signId, stuId, openClassId):
     return html
 
 
-def main(stuid):
-    courses = get_course(stuid)
+def main(stuId):
+    courses = get_course(stuId)
     if courses == 'no':
         print("你今天没有课，好好休息")
     else:
@@ -27,28 +27,31 @@ def main(stuid):
         for i in range(len(courses['courseNmae'])):
             print(f'【{i + 1}】：{courses["classSection"][i]}{courses["courseNmae"][i]}')
         index = int(input("请输入你要监控的课程：")) - 1
-        activities = get_activity(stuid, courses["courseId"][index], courses["openClassId"][index])
-        js = 0
+        activities = get_activity(stuId, courses["courseId"][index], courses["openClassId"][index])
+
         # 反复监控，是否需要存在已开启的签到
         for i in range(18000):
+            js = 0
             for j in range(len(activities)):
                 activity = activities[j]
                 datatype = activity['DataType']
                 if datatype == '签到':
-                    state = activity['Id']
-                    if state == 2:
+                    if activity['State'] == 2:
                         signId = activity['Id']
                         js += 1
                         print("您当前有一个签到，正在尝试帮你签到，请稍等！")
+                        print(activity['Title'])
 
                         # 执行签到，为了能够失败重签，所以嵌套了一下
+
                         def panta():
-                            msg = sign(signId, stuid, courses["openClassId"][index])
-                            if msg == '签到成功':
-                                print("签到成功！，我要休息半小时")
+                            msg = sign(signId, stuId, courses["openClassId"][index])
+                            if msg == '签到成功！':
+                                print(f"{msg}，我要休息半小时")
                                 time.sleep(1800)
                             else:
-                                print("签到失败，正在重新签到")
+                                print(f"{msg}，正在重新签到")
+                                time.sleep(2)
                                 panta()
 
                         panta()
