@@ -34,5 +34,5 @@ def get_course(stuid, today=time.strftime("%Y-%m-%d", time.localtime())):
 
 
 if __name__ == '__main__':
-    stuid = ''
+    stuid = 'midwaoaqv6xmebkkd0czew'
     print(get_course(stuid))
