@@ -1,5 +1,5 @@
 import requests
-from backports import configparser
+import configparser
 
 
 def login():
