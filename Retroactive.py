@@ -36,9 +36,11 @@ def main(stuid):
         if html['code'] == 1:
             print(html['msg'])
             print("逆天改命成功，Lan's Blog：https://www.lanol.cn")
+            input("回车后退出")
         else:
             print(html['msg'])
             print("逆天改命失败，请联系Lan")
+            input("回车后退出")
 
 
 if __name__ == '__main__':

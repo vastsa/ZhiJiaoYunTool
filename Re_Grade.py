@@ -14,10 +14,7 @@ def re_grade(teaId, stuid, getScore):
         'sourceType': '2',
     }
     html = requests.post(url=url, data=data).json()
-    if html['code'] == 1:
-        print("修改成功")
-    else:
-        print("修改失败")
+    return html['msg']
 
 
 def Main(stuId):
@@ -52,7 +49,9 @@ def Main(stuId):
         homeworkStuId = grades[target]['homeworkStuId']
         getScore = int(input("请输入目标分数（整数）："))
         Teaid = input("请输入教师ID（获取方法见www.lanol.cn)：")
-        re_grade(Teaid, homeworkStuId, getScore)
+        result = re_grade(Teaid, homeworkStuId, getScore)
+        print(result)
+        input("回车键后退出")
 
 
 if __name__ == '__main__':

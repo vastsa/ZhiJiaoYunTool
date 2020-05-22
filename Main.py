@@ -14,6 +14,7 @@ print("【1】职教云签到监控功能")
 print("【2】职教云签到改命功能")
 print("【3】职教云作业改分功能")
 print("【4】职教云作业改时功能")
+print("【5】 退 出 当 前 账 号")
 tool = input("请输入功能序号：")
 if tool == '1':
     autosign(stuId)
@@ -23,3 +24,11 @@ elif tool == '3':
     regrade(stuId)
 elif tool == '4':
     retime(stuId)
+elif tool == '5':
+    if os.path.exists('config.info'):
+        os.remove('config.info')
+        print("注销成功，回车后退出")
+        input()
+    else:
+        print("您当前没有登录！")
+        input()
