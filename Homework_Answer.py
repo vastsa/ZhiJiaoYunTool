@@ -21,8 +21,18 @@ def main(stuid):
             f.write(f'{int(i["sortOrder"]) + 1},{i["title"]}\n')
             try:
                 for j in json.loads(i['dataJson']):
-                    f.write(f'{j["SortOrder"]},{j["Content"]}\n')
-                f.write(f'Answer:{i["answer"]}\n')
+                    select = j["SortOrder"]
+                    if select == 0:
+                        select = 'A'
+                    elif select == 1:
+                        select = 'B'
+                    elif select == 2:
+                        select = 'C'
+                    elif select == 3:
+                        select = 'D'
+                    f.write(f'{select},{j["Content"]}\n')
+                answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
+                f.write(f'Answer:{answer}\n')
             except:
                 pass
         input("作业答案已生成在软件目录下。请回车退出")
