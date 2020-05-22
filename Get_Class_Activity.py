@@ -20,4 +20,5 @@ if __name__ == '__main__':
     activityid = ''
     openclassid = ''
     stuid = ''
-    get_activity(stuid, activityid, openclassid)
+    a = get_activity(stuid, activityid, openclassid)
+    print(a)

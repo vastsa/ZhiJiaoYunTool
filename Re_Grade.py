@@ -32,13 +32,8 @@ def Main(stuId):
     if homeworklist == 0:
         print("获取失败")
     else:
-        index = 1
-        for i in homeworklist:
-            print(f'【{index}】{i["title"]}\t{i["stuHomeworkState"]}')
-            index += 1
-        homework_index = int(input("请输入数字序号：")) - 1
-        homeworkId = homeworklist[homework_index]['homeworkId']
-        homeworkTermTimeId = homeworklist[homework_index]['homeworkTermTimeId']
+        homeworkTermTimeId = homeworklist['homeworkTermTimeId']
+        homeworkId = homeworklist['homeworkId']
         grades = get_homework_grade(openClassId, homeworkId, stuId, homeworkTermTimeId)
         if grades != 0:
             index = 1
