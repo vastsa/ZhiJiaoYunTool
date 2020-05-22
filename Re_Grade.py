@@ -5,10 +5,9 @@ from Get_Homework_Grade import get_homework_grade
 from Get_Homework_List import get_homework_list
 
 
-def re_grade(teaId, stuid, getScore):
+def re_grade(stuid, getScore):
     url = 'https://zjyapp.icve.com.cn/newmobileapi/homework/readFileHomework'
     data = {
-        'teaId': teaId,
         'homeworkStuId': stuid,
         'getScore': getScore,
         'sourceType': '2',
