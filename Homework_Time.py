@@ -15,8 +15,6 @@ def retime(time, teaid, HomeWorkId, CourseOpenId, OpenClassId):
 
 
 def main(stuId):
-    time = input("请输入结束时间（格式2020-5-21)：")
-    teaid = input("请输入教师ID（获取方法：www.lanol.cn)：")
     allcourse = get_all_course(stuId)
     if allcourse == 0:
         print("获取失败")
@@ -28,6 +26,8 @@ def main(stuId):
         course_index = int(input("请输入数字序号：")) - 1
     openClassId = allcourse[course_index]['openClassId']
     courseOpenId = allcourse[course_index]['courseOpenId']
+    time = input("请输入结束时间（格式2020-5-21)：")
+    teaid = input("请输入教师ID（获取方法：www.lanol.cn)：")
     homeworklist = get_homework_list(stuId, openClassId, courseOpenId)
     if homeworklist == 0:
         print("获取失败")

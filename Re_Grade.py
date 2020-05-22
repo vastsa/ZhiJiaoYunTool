@@ -41,17 +41,19 @@ def Main(stuId):
         homeworkId = homeworklist[homework_index]['homeworkId']
         homeworkTermTimeId = homeworklist[homework_index]['homeworkTermTimeId']
         grades = get_homework_grade(openClassId, homeworkId, stuId, homeworkTermTimeId)
-        index = 1
-        for i in grades:
-            print(f"【{index}】时间：{i['dateCreated']}\t分数{i['getScore']}")
-            index += 1
-        target = int(input("请输入要修改的序号：")) - 1
-        homeworkStuId = grades[target]['homeworkStuId']
-        getScore = int(input("请输入目标分数（整数）："))
-        Teaid = input("请输入教师ID（获取方法见www.lanol.cn)：")
-        result = re_grade(Teaid, homeworkStuId, getScore)
-        print(result)
-        input("回车键后退出")
+        if grades != 0:
+            index = 1
+            for i in grades:
+                print(f"【{index}】时间：{i['dateCreated']}\t分数{i['getScore']}")
+                index += 1
+            target = int(input("请输入要修改的序号：")) - 1
+            homeworkStuId = grades[target]['homeworkStuId']
+            getScore = int(input("请输入目标分数（整数）："))
+            result = re_grade(homeworkStuId, getScore)
+            print(result)
+            input("回车键后退出")
+        else:
+            input("回车键后退出")
 
 
 if __name__ == '__main__':
