@@ -21,16 +21,8 @@ def main(stuId):
     time = input("请输入结束时间（格式2020-5-21)：")
     teaid = input("请输入教师ID（获取方法：www.lanol.cn)：")
     homeworklist = get_homework_list(stuId, openClassId, courseOpenId)
-    if homeworklist == 0:
-        print("获取失败")
-    else:
-        index = 1
-        for i in homeworklist:
-            print(f'【{index}】{i["title"]}\t{i["stuHomeworkState"]}')
-            index += 1
-        homework_index = int(input("请输入数字序号：")) - 1
-        homeworkId = homeworklist[homework_index]['homeworkId']
-        retime(time, teaid, homeworkId, courseOpenId, openClassId)
+    homeworkId = homeworklist['homeworkId']
+    retime(time, teaid, homeworkId, courseOpenId, openClassId)
 
 
 if __name__ == '__main__':
