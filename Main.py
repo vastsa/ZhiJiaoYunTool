@@ -4,6 +4,7 @@ import requests
 
 from Brainstorm import main as brainstorm
 from Exam_Answer import main as examans
+from Exam_Time import main as exam_time
 from Get_Stu_Info import get_info
 from Homework_Answer import main as homeanswer
 from Homework_Time import main as retime
@@ -18,8 +19,8 @@ infomation = info['information']
 print(infomation['message'])
 name = info['name']
 new_version = info['version']
-now_version = '1.5'
-if now_version != new_version:
+now_version = '1.6'
+if now_version < new_version:
     print(f"版本有更新！目前版本{now_version}，最新版本{new_version}，请前往www.lanol.cn获取最新版")
     input("回车退出！")
 else:
@@ -35,6 +36,7 @@ else:
     print("【6】职教云作业答案功能")
     print("【7】职教云考试答案功能")
     print("【8】职教云作业退回功能")
+    print("【9】职教云考试退回功能")
     print("【0】 退 出 当 前 账 号")
     tool = input("请输入功能序号：")
     if tool == '1':
@@ -53,6 +55,8 @@ else:
         examans(stuId)
     elif tool == '8':
         tui(stuId)
+    elif tool == '9':
+        exam_time(stuId)
     elif tool == '0':
         if os.path.exists('config.info'):
             os.remove('config.info')
