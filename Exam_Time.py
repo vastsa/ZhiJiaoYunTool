@@ -28,4 +28,4 @@ def main(stuId):
 
 
 if __name__ == '__main__':
-    main('midwaoaqv6xmebkkd0czew')
+    main('')
