@@ -19,10 +19,10 @@ def main(stuid):
     with open(f'{title}.txt', 'w', encoding='utf8') as f:
         for i in html['questions']:
             Qusetion_title = i["title"]
-            Qusetion_title = Qusetion_title.replace('<p>','').replace('</p>','').replace('</span>','').replace('<br/>','').replace('&nbsp;','')
+            Qusetion_title = Qusetion_title.replace('<p>', '').replace('</p>', '').replace('</span>', '').replace(
+                '<br/>', '').replace('&nbsp;', '')
             Qusetion_title = re.sub('<.*?>', "", Qusetion_title)
             f.write(f'{int(i["sortOrder"]) + 1},{Qusetion_title}\n')
-            #f.write(f'{int(i["sortOrder"]) + 1},{i["title"]}\n')
             try:
                 selects = json.loads(i['dataJson'])
                 for j in selects:
@@ -36,10 +36,10 @@ def main(stuid):
                     }
                     select = tihuan[str(j['SortOrder'])]
                     content = j["Content"]
-                    content = content.replace('&nbsp;','')
+                    content = content.replace('&nbsp;', '')
                     f.write(f'{select},{content}\n')
-                    #f.write(f'{select},{j["Content"]}\n')
-                answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D').replace(
+                answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3',
+                                                                                                   'D').replace(
                     '4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I')
                 f.write(f'Answer:{answer}\n')
             except:

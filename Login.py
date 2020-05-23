@@ -23,4 +23,5 @@ def login():
         config = configparser.ConfigParser()  # 实例化一个配置写入
         config.add_section('information')  # 创建一个选择器
         config.set('information', 'userId', html['userId'])  # 保存学生ID
+        config.set('information', 'schoolId', html['schoolId'])  # 保存学生ID
         config.write(open('config.info', 'w'))  # 写入文件
