@@ -1,5 +1,6 @@
-import requests
 import configparser
+
+import requests
 
 
 def login():
@@ -15,7 +16,11 @@ def login():
     }
     # 发送登陆请求
     html = requests.post(url=login_url, data=login_data).json()
-    config = configparser.ConfigParser()  # 实例化一个配置写入
-    config.add_section('information')  # 创建一个选择器
-    config.set('information', 'userId', html['userId'])  # 保存学生ID
-    config.write(open('config.info', 'w'))  # 写入文件
+    if html['code'] == -1:
+        print(html['msg'])
+        exit()
+    else:
+        config = configparser.ConfigParser()  # 实例化一个配置写入
+        config.add_section('information')  # 创建一个选择器
+        config.set('information', 'userId', html['userId'])  # 保存学生ID
+        config.write(open('config.info', 'w'))  # 写入文件

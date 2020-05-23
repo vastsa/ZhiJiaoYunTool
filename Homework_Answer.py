@@ -20,25 +20,20 @@ def main(stuid):
         for i in html['questions']:
             f.write(f'{int(i["sortOrder"]) + 1},{i["title"]}\n')
             try:
-                for j in json.loads(i['dataJson']):
-                    select = j["SortOrder"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
-                    if select == 0:
-                        select = 'A'
-                    elif select == 1:
-                        select = 'B'
-                    elif select == 2:
-                        select = 'C'
-                    elif select == 3:
-                        select = 'D'
-                    elif select == 4:
-                        select = 'E'
-                    elif select == 5:
-                        select = 'F'
+                selects = json.loads(i['dataJson'])
+                for j in selects:
+                    tihuan = {
+                        '0': 'A',
+                        '1': 'B',
+                        '2': 'C',
+                        '3': 'D',
+                        '4': 'E',
+                        '5': 'F',
+                    }
+                    select = tihuan[str(j['SortOrder'])]
                     f.write(f'{select},{j["Content"]}\n')
                 answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D').replace(
-                    '4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I').replace('9',
-                                                                                                              'J').replace(
-                    '10', 'L')
+                    '4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I')
                 f.write(f'Answer:{answer}\n')
             except:
                 pass
