@@ -1,4 +1,5 @@
 import configparser
+import time
 
 import requests
 
@@ -18,10 +19,15 @@ def login():
     html = requests.post(url=login_url, data=login_data).json()
     if html['code'] == -1:
         print(html['msg'])
-        exit()
+        input("登陆失败！如果密码有英文请切换到英文输入。请重新登陆")
+        login()
     else:
-        config = configparser.ConfigParser()  # 实例化一个配置写入
-        config.add_section('information')  # 创建一个选择器
-        config.set('information', 'userId', html['userId'])  # 保存学生ID
-        config.set('information', 'schoolId', html['schoolId'])  # 保存学生ID
-        config.write(open('config.info', 'w'))  # 写入文件
+        try:
+            config = configparser.ConfigParser()  # 实例化一个配置写入
+            config.add_section('information')  # 创建一个选择器
+            config.set('information', 'userId', html['userId'])  # 保存学生ID
+            config.set('information', 'schoolId', html['schoolId'])  # 保存学生ID
+            config.write(open('config.info', 'w'))  # 写入文件
+        except:
+            input("登陆失败！如果密码有英文请切换到英文输入。请重新登陆")
+            login()
