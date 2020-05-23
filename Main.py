@@ -3,16 +3,18 @@ import os
 import requests
 
 from Brainstorm import main as brainstorm
+from Exam_All_Answer import main as allks
 from Exam_Answer import main as examans
 from Exam_Time import main as exam_time
 from Get_Stu_Info import get_info
+from Homework_All_Answer import main as plhq
 from Homework_Answer import main as homeanswer
 from Homework_Time import main as retime
 from Re_Grade import Main as regrade
 from Retroactive import main as buqian
 from Sign_Auto import main as autosign
 from rejectHomework import main as tui
-from Homework_All_Answer import main as plhq
+
 url = 'https://www.lanol.cn/zjypackage.json'
 info = requests.get(url).json()
 infomation = info['information']
@@ -38,6 +40,7 @@ else:
     print("【8】职教云作业退回功能")
     print("【9】职教云考试退回功能")
     print("【10】作业批量获取功能")
+    print("【11】考试批量获取功能")
     print("【0】 退 出 当 前 账 号")
     tool = input("请输入功能序号：")
     if tool == '1':
@@ -60,6 +63,8 @@ else:
         exam_time(stuId)
     elif tool == '10':
         plhq(stuId)
+    elif tool == '11':
+        allks(stuId)
     elif tool == '0':
         if os.path.exists('config.info'):
             os.remove('config.info')
