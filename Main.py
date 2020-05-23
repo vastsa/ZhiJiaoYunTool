@@ -12,7 +12,7 @@ from Re_Grade import Main as regrade
 from Retroactive import main as buqian
 from Sign_Auto import main as autosign
 from rejectHomework import main as tui
-
+from Homework_All_Answer import main as plhq
 url = 'https://www.lanol.cn/zjypackage.json'
 info = requests.get(url).json()
 infomation = info['information']
@@ -58,6 +58,8 @@ else:
         tui(stuId)
     elif tool == '9':
         exam_time(stuId)
+    elif tool == '10':
+        plhq(stuId)
     elif tool == '0':
         if os.path.exists('config.info'):
             os.remove('config.info')
