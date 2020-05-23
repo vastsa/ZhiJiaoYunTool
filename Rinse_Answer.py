@@ -14,7 +14,7 @@ def Rinse(PreviewList):
                                                                                                                   '') \
             .replace('Content', '').replace(':', '').replace('IsAnswer', '').replace(',', '  ').replace('&nbsp;', '')
 
-        with open(f"D:/{title}.txt", "a", encoding="utf-8") as file:
+        with open(f"{title}.txt", "a", encoding="utf-8") as file:
             if item['queTypeName'] == "单选题":
                 file.write('题目' + str(index) + ':' + Title + '\n\n' + '单选题答案：' + dataJson + '\n\n')
             if item['queTypeName'] == "多选题":

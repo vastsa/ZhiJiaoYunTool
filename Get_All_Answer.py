@@ -44,6 +44,7 @@ def main(stuid, schoolid):
                 index += 1
         time.sleep(3)
         print(f"{filename}已下载")
+        print("答案已保存软件根目录下！")
         input("请回车退出")
         # questionlist = html['questionList']
         # filename = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
