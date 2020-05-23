@@ -19,7 +19,7 @@ infomation = info['information']
 print(infomation['message'])
 name = info['name']
 new_version = info['version']
-now_version = '1.4'
+now_version = '1.5'
 if now_version < new_version:
     print(f"版本有更新！目前版本{now_version}，最新版本{new_version}，请前往www.lanol.cn获取最新版")
     input("回车退出！")

@@ -21,7 +21,7 @@ def main(stuid):
             f.write(f'{int(i["sortOrder"]) + 1},{i["title"]}\n')
             try:
                 for j in json.loads(i['dataJson']):
-                    select = j["SortOrder"]
+                    select = j["SortOrder"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
                     if select == 0:
                         select = 'A'
                     elif select == 1:
@@ -30,8 +30,15 @@ def main(stuid):
                         select = 'C'
                     elif select == 3:
                         select = 'D'
+                    elif select == 4:
+                        select = 'E'
+                    elif select == 5:
+                        select = 'F'
                     f.write(f'{select},{j["Content"]}\n')
-                answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D')
+                answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3', 'D').replace(
+                    '4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I').replace('9',
+                                                                                                              'J').replace(
+                    '10', 'L')
                 f.write(f'Answer:{answer}\n')
             except:
                 pass
