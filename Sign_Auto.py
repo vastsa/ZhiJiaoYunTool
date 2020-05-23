@@ -22,6 +22,7 @@ def main(stuId):
     courses = get_course(stuId)
     if courses == 'no':
         print("你今天没有课，好好休息")
+        input("回车退出！")
     else:
         print("Lan职教云助手提示您：\n您今天课表如下：")
         for i in range(len(courses['courseNmae'])):
