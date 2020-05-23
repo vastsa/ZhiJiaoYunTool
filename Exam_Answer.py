@@ -55,7 +55,10 @@ def answer(examid, title):
                     '4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I')
                 f.write(f'Answer:{answer}\n')
             except:
-                pass
+                answer = i["answer"].replace('0', 'A').replace('1', 'B').replace('2', 'C').replace('3',
+                                                                                                   'D').replace(
+                    '4', 'E').replace('5', 'F').replace('6', 'G').replace('7', 'H').replace('8', 'I')
+                f.write(f'Answer:{answer}\n')
     input("答案已生成在软件目录下。请回车退出")
 
 
