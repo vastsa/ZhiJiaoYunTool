@@ -3,11 +3,10 @@ import os
 import requests
 
 from Brainstorm import main as brainstorm
-from Exam_All_Answer import main as allks
 from Exam_Answer import main as examans
 from Exam_Time import main as exam_time
+from Get_All_Answer import main as tiku
 from Get_Stu_Info import get_info
-from Homework_All_Answer import main as plhq
 from Homework_Answer import main as homeanswer
 from Homework_Time import main as retime
 from Re_Grade import Main as regrade
@@ -27,7 +26,9 @@ if now_version < new_version:
     input("回车退出！")
 else:
     print(f'随机一句：{requests.get("https://v1.hitokoto.cn/?encode=text&charset=utf8").text}')
-    stuId = get_info()
+    password = get_info()
+    stuId = password['stuId']
+    schoolid = password['schoolId']
     print(f"【欢迎使用{name}】")
     print(" www.lanol.cn     By:Lan")
     print("【1】职教云签到监控功能")
@@ -39,8 +40,7 @@ else:
     print("【7】职教云考试答案功能")
     print("【8】职教云作业退回功能")
     print("【9】职教云考试退回功能")
-    print("【10】作业批量获取功能")
-    print("【11】考试批量获取功能")
+    print("【10】所有题目获取功能")
     print("【0】 退 出 当 前 账 号")
     tool = input("请输入功能序号：")
     if tool == '1':
@@ -62,9 +62,7 @@ else:
     elif tool == '9':
         exam_time(stuId)
     elif tool == '10':
-        plhq(stuId)
-    elif tool == '11':
-        allks(stuId)
+        tiku(stuId, schoolid)
     elif tool == '0':
         if os.path.exists('config.info'):
             os.remove('config.info')

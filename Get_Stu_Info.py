@@ -28,7 +28,11 @@ def get_info():
         login()
         config.read('config.info')
         stuId = config['information']['userid']
-        return stuId
+        schoolId = config['information']['schoolId']
+        return {
+            'stuId': stuId,
+            'schoolId': schoolId
+        }
     else:
         return print_info(html)
 
@@ -39,7 +43,10 @@ def print_info(html):
     school = data['schoolName']
     QQ = data['QQ']
     print(f"姓名\t\t学校\t\tQQ\n{name}\t{school}\t{QQ}")
-    return data['Id']
+    return {
+        'stuId':data['Id'],
+        'schoolId':data['schoolId']
+    }
 
 
 if __name__ == '__main__':
