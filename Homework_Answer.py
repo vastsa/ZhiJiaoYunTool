@@ -1,4 +1,6 @@
 import requests
+import re
+import json
 
 from Get_All_Course import get_all_course
 from Get_Homework_List import get_homework_list
@@ -13,8 +15,11 @@ def main(stuid):
     data = {
         'homeWorkId': homeworkId
     }
-    html = requests.post(url=url, data=data).json()['data']
-    Rinse(html)
+    #html = requests.post(url=url, data=data).json()['data']
+    html = requests.post(url=url, data=data).text
+    html = html.replace('&nbsp;', '')
+    html = re.sub('<.*?>', "", html)
+    Rinse(json.loads(html)['data'])
 
 
 if __name__ == '__main__':
