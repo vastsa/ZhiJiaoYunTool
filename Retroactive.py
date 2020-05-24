@@ -1,5 +1,6 @@
 # 补签模块
 import requests
+
 from Get_Class_Activity import get_activity
 from Get_Day_Course import get_course
 
@@ -32,15 +33,25 @@ def main(stuid):
             'data': f'{datas}'
         }
         bqurl = 'https://zjyapp.icve.com.cn/newmobileapi/faceteach/changeSignType'
-        html = requests.post(url=bqurl,data=xdata).json()
+        html = requests.post(url=bqurl, data=xdata).json()
         if html['code'] == 1:
             print(html['msg'])
             print("逆天改命成功，Lan's Blog：https://www.lanol.cn")
-            input("回车后退出")
+            sele = input("【1】]返回首页\n【2】返回上级")
+            if sele == 2:
+                main(stuid)
+            else:
+                from Main import main as menu
+                menu()
         else:
             print(html['msg'])
             print("逆天改命失败，请联系Lan")
-            input("回车后退出")
+            sele = input("【1】返回首页\n【2】返回上级\n请选择：")
+            if sele == 2:
+                main(stuid)
+            else:
+                from Main import main as menu
+                menu()
 
 
 if __name__ == '__main__':

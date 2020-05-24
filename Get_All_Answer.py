@@ -2,7 +2,6 @@ import time
 import re
 import json
 import requests
-
 from Get_All_Course import get_all_course
 
 
@@ -90,7 +89,7 @@ def main(stuid, schoolid):
         time.sleep(3)
         print(f"{filename}已下载")
         print("答案已保存软件根目录下！")
-        input("请回车退出")
+        main(stuid, schoolid)
         # questionlist = html['questionList']
         # filename = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
         # with open(f'{filename}.txt', 'w', encoding='utf8') as f:

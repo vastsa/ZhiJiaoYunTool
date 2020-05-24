@@ -24,7 +24,12 @@ def main(stuId):
     result_url = url + xdata
     result = requests.post(url=result_url).json()
     print(result['msg'])
-    input("回车退出")
+    sele = input("【1】返回首页\n【2】返回上级\n请选择：")
+    if sele == 2:
+        main(stuId)
+    else:
+        from Main import main as menu
+        menu()
 
 
 if __name__ == '__main__':
