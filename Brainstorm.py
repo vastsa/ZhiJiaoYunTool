@@ -1,5 +1,4 @@
 import requests
-
 from Get_Class_Activity import get_activity
 from Get_Day_Course import get_course
 
@@ -45,7 +44,7 @@ def main(stuid):
         }
         html = requests.post(url=url, data=data).json()
         print(html['msg'])
-        input("回车后退出")
+        main(stuid)
 
 
 if __name__ == '__main__':
