@@ -17,8 +17,10 @@ def main(stuid):
     }
     #html = requests.post(url=url, data=data).json()['data']
     html = requests.post(url=url, data=data).text
-    html = html.replace('&nbsp;', '')
-    html = re.sub('<.*?>', "", html)
+    html = html.replace('&nbsp;', '').replace('</span>', '').replace('</p>', '').replace('</font>', '').replace('<strong>', '').replace('</strong>', '').replace('<b>', '').replace('</b>', '').replace('<div>','').replace('</div>','').replace('<br>','').replace('<br/>','')
+    html = re.sub('<p.*?>', "", html)
+    html = re.sub('<span.*?>', "", html)
+    html = re.sub('<font.*?>', "", html)
     Rinse(json.loads(html)['data'])
 
 

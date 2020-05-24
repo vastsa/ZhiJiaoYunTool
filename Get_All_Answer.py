@@ -30,9 +30,17 @@ def main(stuid, schoolid):
     # PreviewList = requests.post(url=url, data=data).json()
     # 先转为文本删除无效内容再转回去json处理
     PreviewListReq = requests.post(url=url, data=data).text
-    PreviewListReq = PreviewListReq.replace('&nbsp;', '')
-    PreviewListReq = re.sub('<.*?>', "", PreviewListReq)
+    PreviewListReq = PreviewListReq.replace('&nbsp;', '').replace('</span>', '').replace('</p>', '').replace('</font>', '').replace('<strong>', '').replace('</strong>', '').replace('<b>', '').replace('</b>', '').replace('<div>','').replace('</div>','').replace('<br>','').replace('<br/>','')
+    PreviewListReq = re.sub('<p.*?>', "", PreviewListReq)
+    PreviewListReq = re.sub('<span.*?>', "", PreviewListReq)
+    PreviewListReq = re.sub('<font.*?>', "", PreviewListReq)
     PreviewList = json.loads(PreviewListReq)
+    if PreviewListReq.find('<img') > 0:
+        hhf = '<br />'
+        kzm = '.html'
+    else:
+        hhf = '\n'
+        kzm = '.txt'
 
     if PreviewList['code'] == 1:
         questions = PreviewList['questionList']
@@ -53,7 +61,7 @@ def main(stuid, schoolid):
             # dataJson = re.sub('<.*?>', "", dataJson)
             dataJson = item['dataJson']
             try:
-                with open(f"{filename}.txt", "a", encoding="utf-8") as file:
+                with open(f"{filename}"+kzm, "a", encoding="utf-8") as file:
                     if item['queTypeName'] == "单选题":
                         dataJsons = json.loads(item['dataJson'])
                         Contents = ''
@@ -62,10 +70,10 @@ def main(stuid, schoolid):
                             Content = dataJsons[SortOrder_i]['Content']
                             if dataJsons[SortOrder_i]['IsAnswer'] == True:
                                 key = '单选题答案:' + tihao + '.' + Content
-                            Contents = Contents + tihao + '.' + Content + '\n'
+                            Contents = Contents + tihao + '.' + Content + hhf
                         Contents = Contents + key
                         # file.write('题目' + str(index) + ':' + Title + '\n' + '单选题答案：' + dataJson + '\n\n')
-                        file.write('题目' + str(index) + ':' + Title + '\n' + Contents + '\n\n')
+                        file.write('题目' + str(index) + ':' + Title + hhf + Contents + hhf + hhf)
                     if item['queTypeName'] == "多选题":
                         dataJsons = json.loads(item['dataJson'])
                         Contents = ''
@@ -75,22 +83,22 @@ def main(stuid, schoolid):
                             Content = dataJsons[SortOrder_i]['Content']
                             if dataJsons[SortOrder_i]['IsAnswer'] == True:
                                 key = key + tihao + '.' + Content + ','
-                            Contents = Contents + tihao + '.' + Content + '\n'
+                            Contents = Contents + tihao + '.' + Content + hhf
                         if key[-1] == ',':
                             key = key[0:-1]
                         Contents = Contents + key
-                        file.write('题目' + str(index) + ':' + Title + '\n' + Contents + '\n\n')
+                        file.write('题目' + str(index) + ':' + Title + hhf + Contents + '\n\n')
                     if item['queTypeName'] == "判断题":
                         x = item['answer'].replace('0', '错').replace('1', '对').replace('2', '').replace('3',
                                                                                                         '').replace(
                             '4', '')
-                        file.write('题目' + str(index) + ':' + Title + '\n' + "判断题答案：" + x + '\n\n')
+                        file.write('题目' + str(index) + ':' + Title + hhf + hhf + "判断题答案：" + x + hhf + hhf)
                     if item['queTypeName'] == "问答题":
                         y = item['answer']
-                        file.write('题目' + str(index) + ':' + Title + '\n\n' + '问答题答案：' + y + '\n\n')
+                        file.write('题目' + str(index) + ':' + Title + hhf + hhf + '问答题答案：' + y + hhf + hhf)
                     if item['queTypeName'] == "填空题(客观)":
                         y = item['answer']
-                        file.write('题目' + str(index) + ':' + Title + '\n\n' + '填空题(客观)答案：' + y + '\n\n')
+                        file.write('题目' + str(index) + ':' + Title + hhf + hhf + '填空题(客观)答案：' + hhf + hhf)
                     index += 1
             except json.JSONDecodeError as e:
                 print(PreviewList)
