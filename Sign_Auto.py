@@ -1,3 +1,4 @@
+import threading
 import time
 
 import requests
@@ -18,6 +19,39 @@ def sign(signId, stuId, openClassId):
     return html
 
 
+def jiankong(activities, openClassId, stuId):
+    # 反复监控，是否需要存在已开启的签到
+    for i in range(18000):
+        js = 0
+        for j in range(len(activities)):
+            activity = activities[j]
+            datatype = activity['DataType']
+            if datatype == '签到':
+                if activity['State'] == 2:
+                    signId = activity['Id']
+                    js += 1
+                    print("您当前有一个签到，正在尝试帮你签到，请稍等！")
+                    print(activity['Title'])
+
+                    # 执行签到，为了能够失败重签，所以嵌套了一下
+
+                    def panta():
+                        msg = sign(signId, stuId, openClassId)
+                        if msg == '签到成功！':
+                            print(f"{msg}，我要休息半小时")
+                            time.sleep(1800)
+                        else:
+                            print(f"{msg}，正在重新签到")
+                            time.sleep(2)
+                            panta()
+
+                    panta()
+        if js == 0:
+            print(f"系统未检测到需要签到哦！", end="当前时间：")
+            print(time.strftime("%H:%M:%S", time.localtime()))
+            time.sleep(30)
+
+
 def main(stuId):
     courses = get_course(stuId)
     if courses == 'no':
@@ -27,39 +61,12 @@ def main(stuId):
         print("Lan职教云助手提示您：\n您今天课表如下：")
         for i in range(len(courses['courseNmae'])):
             print(f'【{i + 1}】：{courses["classSection"][i]}{courses["courseNmae"][i]}')
-        index = int(input("请输入你要监控的课程：")) - 1
-        activities = get_activity(stuId, courses["courseId"][index], courses["openClassId"][index])
-
-        # 反复监控，是否需要存在已开启的签到
-        for i in range(18000):
-            js = 0
-            for j in range(len(activities)):
-                activity = activities[j]
-                datatype = activity['DataType']
-                if datatype == '签到':
-                    if activity['State'] == 2:
-                        signId = activity['Id']
-                        js += 1
-                        print("您当前有一个签到，正在尝试帮你签到，请稍等！")
-                        print(activity['Title'])
-
-                        # 执行签到，为了能够失败重签，所以嵌套了一下
-
-                        def panta():
-                            msg = sign(signId, stuId, courses["openClassId"][index])
-                            if msg == '签到成功！':
-                                print(f"{msg}，我要休息半小时")
-                                time.sleep(1800)
-                            else:
-                                print(f"{msg}，正在重新签到")
-                                time.sleep(2)
-                                panta()
-
-                        panta()
-            if js == 0:
-                print(f"系统未检测到需要签到哦！", end="当前时间：")
-                print(time.strftime("%H:%M:%S", time.localtime()))
-                time.sleep(30)
+        for index in range(len(courses['courseId'])):
+            activities = get_activity(stuId, courses["courseId"][index], courses["openClassId"][index])
+            # jiankong(activities, courses["courseId"][index], stuId)
+            xcname = 't' + str(index)
+            xcname = threading.Thread(target=jiankong, args=(activities, courses["courseId"][index], stuId))
+            xcname.start()
 
 
 if __name__ == '__main__':
