@@ -37,7 +37,7 @@ def Main(stuId):
             getScore = int(input("请输入目标分数（整数）："))
             result = re_grade(homeworkStuId, getScore)
             print(result)
-            sele = input("【1】]返回首页\n【2】返回上级")
+            sele = input("【1】返回首页\n【2】返回上级")
             if sele == 2:
                 Main(stuId)
             else:
