@@ -1,5 +1,6 @@
 import time
-
+import re
+import json
 import requests
 
 from Get_All_Course import get_all_course
@@ -14,26 +15,70 @@ def main(stuid, schoolid):
         'courseOpenId': courseOpenId,
         'limit': '1000',
     }
-    PreviewList = requests.post(url=url, data=data).json()
+    tihuana = {
+        '0': 'A',
+        '1': 'B',
+        '2': 'C',
+        '3': 'D',
+        '4': 'E',
+        '5': 'F',
+        '6': 'G',
+        '7': 'H',
+        '8': 'I',
+    }
+    #PreviewList = requests.post(url=url, data=data).json()
+    #先转为文本删除无效内容再转回去json处理
+    PreviewListReq = requests.post(url=url, data=data).text
+    PreviewListReq = PreviewListReq.replace('&nbsp;', '')
+    PreviewListReq = re.sub('<.*?>', "", PreviewListReq)
+    PreviewList = json.loads(PreviewListReq)
+
     if PreviewList['code'] == 1:
         questions = PreviewList['questionList']
         index = 1
         filename = time.strftime("%Y-%m-%d-%H-%M", time.localtime())
         for item in questions:
-            Title = item['title'].replace('&nbsp;', '').replace('<p>', '').replace('</p>', '').replace('<strong>',
-                                                                                                       '').replace(
-                '</strong>', '').replace('<br/>', '')
-            dataJson = item['dataJson'].replace('true', '：对').replace('false', '').replace('[', '').replace(']', '') \
-                .replace('"', '').replace('SortOrder', '').replace('0', '').replace('1', '').replace('2', '').replace(
-                '4', '').replace(
-                '3', '') \
-                .replace('Content', '').replace(':', '').replace('IsAnswer', '').replace(',', '  ').replace('&nbsp;',
-                                                                                                            '')
+            #Title = item['title'].replace('&nbsp;', '').replace('<p>', '').replace('</p>', '').replace('<strong>',
+                                                                                                       #'').replace(
+             #   '</strong>', '').replace('<br/>', '')
+            Title = item['title']
+            #Title = re.sub('<.*?>', "", Title)
+            #dataJson = item['dataJson'].replace('true', '：对').replace('false', '').replace('[', '').replace(']', '') \
+                #.replace('"', '').replace('SortOrder', '').replace('0', '').replace('1', '').replace('2', '').replace(
+                #'4', '').replace(
+                #'3', '') \
+                #.replace('Content', '').replace(':', '').replace('IsAnswer', '').replace(',', '  ').replace('&nbsp;',
+                                                                                                            #'')
+            #dataJson = re.sub('<.*?>', "", dataJson)
+            dataJson = item['dataJson']
+            dataJsons = json.loads(item['dataJson'])
             with open(f"{filename}.txt", "a", encoding="utf-8") as file:
                 if item['queTypeName'] == "单选题":
-                    file.write('题目' + str(index) + ':' + Title + '\n' + '单选题答案：' + dataJson + '\n\n')
+                    Contents = ''
+                    for SortOrder_i in range(len(dataJsons)):
+                        tihao = tihuana[str(dataJsons[SortOrder_i]['SortOrder'])]
+                        Content = dataJsons[SortOrder_i]['Content']
+                        if dataJsons[SortOrder_i]['IsAnswer'] == True:
+                            key = '单选题答案:' + tihao + '.' + Content
+                        Contents = Contents + tihao + '.' + Content + '\n'
+                    Contents = Contents + key
+                    #file.write('题目' + str(index) + ':' + Title + '\n' + '单选题答案：' + dataJson + '\n\n')
+                    file.write('题目' + str(index) + ':' + Title + '\n' + Contents + '\n\n')
                 if item['queTypeName'] == "多选题":
-                    file.write('题目' + str(index) + ':' + Title + '\n' + '多选题答案：' + dataJson + '\n\n')
+                    Contents = ''
+                    key = '多选题答案:'
+                    for SortOrder_i in range(len(dataJsons)):
+                        tihao = tihuana[str(dataJsons[SortOrder_i]['SortOrder'])]
+                        Content = dataJsons[SortOrder_i]['Content']
+                        if dataJsons[SortOrder_i]['IsAnswer'] == True:
+                            key = key + tihao + '.' + Content + ','
+                        Contents = Contents + tihao + '.' + Content + '\n'
+                    if key[-1] == ',':
+                        key = key[0:-1]
+                    Contents = Contents + key
+
+                    #file.write('题目' + str(index) + ':' + Title + '\n' + '多选题答案：' + dataJson + '\n\n')
+                    file.write('题目' + str(index) + ':' + Title + '\n' + Contents + '\n\n')
                 if item['queTypeName'] == "判断题":
                     x = item['answer'].replace('0', '错').replace('1', '对').replace('2', '').replace('3', '').replace(
                         '4', '')
