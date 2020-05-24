@@ -16,7 +16,7 @@ from rejectHomework import main as tui
 
 
 def main():
-    url = 'http://app.1314567.xyz/zjypackage.json'
+    url = ''
     info = requests.get(url).json()
     infomation = info['information']
     print(infomation['message'])
