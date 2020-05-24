@@ -16,7 +16,7 @@ from rejectHomework import main as tui
 
 
 def main():
-    url = ''
+    url = 'http://app.1314567.xyz/zjypackage.json'
     info = requests.get(url).json()
     infomation = info['information']
     print(infomation['message'])
@@ -34,22 +34,22 @@ def main():
         schoolid = password['schoolId']
         print(f"【欢迎使用{name}】")
         print(" www.lanol.cn     By:Lan")
-        print("【1】职教云签到监控功能")
-        print("【2】职教云签到改命功能")
-        print("【3】职教云作业改分功能")
-        print("【4】职教云作业改时功能")
+        print("【1】自动签到监控功能")
+        print("【2】签到补签改分功能")
+        print("【3】单个作业改分功能")
+        print("【4】单个作业改时功能")
         print("【5】头脑风暴改评分功能")
-        print("【6】职教云作业答案功能")
-        print("【7】职教云考试答案功能")
+        print("【6】获取作业答案功能")
+        print("【7】获取考试答案功能")
         print("【8】职教云作业退回功能")
         print("【9】职教云考试退回功能")
-        print("【10】所有题目获取功能")
+        print("【10】科目题库获取功能")
         print("【0】 退 出 当 前 账 号")
         tool = input("请输入功能序号：")
         if tool == '1':
             autosign(stuId)
         elif tool == '2':
-            buqian(stuId)
+            buqian(stuId, schoolid)
         elif tool == '3':
             regrade(stuId)
         elif tool == '4':

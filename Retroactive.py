@@ -5,7 +5,7 @@ from Get_Class_Activity import get_activity
 from Get_Day_Course import get_course
 
 
-def main(stuid):
+def main(stuid,schoolid):
     print("【欢迎使用职教云补签助手】")
     print("                  By:Lan")
     date = input("请输入需要补签的日期如(2020-5-20)：")
@@ -28,7 +28,7 @@ def main(stuid):
         for i in range(len(buqianid)):
             print(f'【{i}】{buqianname[i]}')
         target = int(input("请输入要逆天改命的序号："))
-        datas = f'{{"OpenClassId":"{courses["openClassId"]}","Id":"{stuid}","SignId":"{buqianid[target]}","StuId":"{stuid}","SignResultType":1,"SourceType":2,"schoolId":"3-3sabgooohfboflpnx6bq"}}'
+        datas = f'{{"OpenClassId":"{courses["openClassId"]}","Id":"{stuid}","SignId":"{buqianid[target]}","StuId":"{stuid}","SignResultType":1,"SourceType":2,"schoolId":"{schoolid}"}}'
         xdata = {
             'data': f'{datas}'
         }
@@ -37,21 +37,41 @@ def main(stuid):
         if html['code'] == 1:
             print(html['msg'])
             print("逆天改命成功，Lan's Blog：https://www.lanol.cn")
-            sele = input("【1】]返回首页\n【2】返回上级")
-            if sele == 2:
-                main(stuid)
-            else:
-                from Main import main as menu
-                menu()
+            re_grade = input("是否需要修改签到分数：是 或 否")
+            if re_grade == "是":
+                SignId = buqianid[target]
+                activityid = activities[target]['Id']
+                url = 'https://zjyapp.icve.com.cn/newmobileapi/faceTeach/getCheckStuInfo'
+                data = {
+                    'signId': SignId,
+                    'activityId': activityid,
+                }
+                html = requests.post(url=url, data=data).json()
+                for i in html['signedList']:
+                    if i['StuId'] == stuid:
+                        SignStuId = i['SignStuId']
+                get_grade = input("请输入要改的分数（1-5）：")
+                if int(get_grade)<6:
+                    grade_url = 'https://zjyapp.icve.com.cn/newmobileapi/faceTeach/saveSignStuScore'
+                    data = {
+                        'signId': SignId,
+                        'signStuIds': SignStuId,
+                        'score': get_grade
+                    }
+                    result = requests.post(url=grade_url, data=data).json()['msg']
+                    print(result)
+                    print("返回首页菜单")
+                    from Main import main as menu
+                    menu()
+                else:
+                    print("再见")
+                    from Main import main as menu
+                    menu()
         else:
             print(html['msg'])
             print("逆天改命失败，请联系Lan")
-            sele = input("【1】返回首页\n【2】返回上级\n请选择：")
-            if sele == 2:
-                main(stuid)
-            else:
-                from Main import main as menu
-                menu()
+            from Main import main as menu
+            menu()
 
 
 if __name__ == '__main__':
