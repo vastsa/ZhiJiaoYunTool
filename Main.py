@@ -2,13 +2,15 @@ import os
 
 import requests
 
-from Brainstorm import main as brainstorm
+from Class_Activity_Grade import get_activity as ketang
 from Exam_Answer import main as examans
+from Exam_Reject import examlist as reexam
 from Exam_Time import main as exam_time
 from Get_All_Answer import main as tiku
 from Get_Stu_Info import get_info
 from Homework_Answer import main as homeanswer
 from Homework_Time import main as retime
+from No_Sign import main as nosign
 from Re_Grade import Main as regrade
 from Retroactive import main as buqian
 from Sign_Auto import main as autosign
@@ -38,12 +40,14 @@ def main():
         print("【2】签到补签改分功能")
         print("【3】单个作业改分功能")
         print("【4】单个作业改时功能")
-        print("【5】头脑风暴改评分功能")
+        print("【5】课堂活动改分功能")
         print("【6】获取作业答案功能")
         print("【7】获取考试答案功能")
         print("【8】职教云作业退回功能")
-        print("【9】职教云考试退回功能")
+        print("【9】职教云考试改时功能")
         print("【10】科目题库获取功能")
+        print("【11】考 试 退 回 功 能")
+        print("【12】查询未签到人员")
         print("【0】 退 出 当 前 账 号")
         tool = input("请输入功能序号：")
         if tool == '1':
@@ -55,7 +59,7 @@ def main():
         elif tool == '4':
             retime(stuId)
         elif tool == '5':
-            brainstorm(stuId)
+            ketang(stuId, name)
         elif tool == '6':
             homeanswer(stuId)
         elif tool == '7':
@@ -66,6 +70,10 @@ def main():
             exam_time(stuId)
         elif tool == '10':
             tiku(stuId, schoolid)
+        elif tool == '11':
+            reexam(stuId)
+        elif tool == '12':
+            nosign(stuId)
         elif tool == '0':
             if os.path.exists('config.info'):
                 os.remove('config.info')

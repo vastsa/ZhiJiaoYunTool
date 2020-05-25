@@ -7,6 +7,7 @@ def get_all_course(stuid):
         'stuId': stuid
     }
     html = requests.post(url=url, data=data).json()
+    print(html)
     if html['code'] == 1:
         index = 1
         for i in html['dataList']:

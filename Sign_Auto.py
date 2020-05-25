@@ -21,31 +21,34 @@ def sign(signId, stuId, openClassId):
 
 def jiankong(activities, openClassId, stuId):
     # 反复监控，是否需要存在已开启的签到
+    signids = []  # 签到过的ID集合
     for i in range(18000):
         js = 0
         for j in range(len(activities)):
             activity = activities[j]
             datatype = activity['DataType']
-            if datatype == '签到':
-                if activity['State'] == 2:
-                    signId = activity['Id']
-                    js += 1
-                    print("您当前有一个签到，正在尝试帮你签到，请稍等！")
-                    print(activity['Title'])
+            if datatype == '签到' and activity['State'] == 2 and activity['Id'] not in signids:
+                signId = activity['Id']
+                signids.append(signId)
+                print(signId)
+                js += 1
+                print("您当前有一个签到，正在尝试帮你签到，请稍等！")
+                print(activity['Title'])
 
-                    # 执行签到，为了能够失败重签，所以嵌套了一下
+                # 执行签到，为了能够失败重签，所以嵌套了一下
 
-                    def panta():
-                        msg = sign(signId, stuId, openClassId)
-                        if msg == '签到成功！':
-                            print(f"{msg}，我要休息半小时")
-                            time.sleep(1800)
-                        else:
-                            print(f"{msg}，正在重新签到")
-                            time.sleep(2)
-                            panta()
+                def panta():
 
-                    panta()
+                    msg = sign(signId, stuId, openClassId)
+                    if msg == '签到成功！':
+                        print(f"{msg}，我要休息半小时")
+                        time.sleep(10)
+                    else:
+                        print(f"{msg}，正在重新签到")
+                        time.sleep(2)
+                        panta()
+
+                panta()
         if js == 0:
             print(f"系统未检测到需要签到哦！", end="当前时间：")
             print(time.strftime("%H:%M:%S", time.localtime()))
@@ -63,8 +66,7 @@ def main(stuId):
             print(f'【{i + 1}】：{courses["classSection"][i]}{courses["courseNmae"][i]}')
         for index in range(len(courses['courseId'])):
             activities = get_activity(stuId, courses["courseId"][index], courses["openClassId"][index])
-            # jiankong(activities, courses["courseId"][index], stuId)
-            xcname = 't' + str(index)
+            jiankong(activities, courses['openClassId'], stuId)
             xcname = threading.Thread(target=jiankong, args=(activities, courses["courseId"][index], stuId))
             xcname.start()
 

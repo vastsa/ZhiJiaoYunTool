@@ -76,9 +76,6 @@ def Rinse(PreviewList):
             pass
     time.sleep(3)
     print("答案已保存软件根目录下！")
-    sele = input("【1】返回首页\n【2】返回上级\n请选择：")
-    if sele == 2:
-        Rinse(PreviewList)
-    else:
-        from Main import main as menu
-        menu()
+    input('返回首页中。。。。。')
+    from Main import main as menu
+    menu()

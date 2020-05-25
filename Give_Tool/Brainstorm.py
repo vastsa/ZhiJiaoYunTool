@@ -1,4 +1,5 @@
 import requests
+
 from Get_Class_Activity import get_activity
 from Get_Day_Course import get_course
 
@@ -9,6 +10,7 @@ def get_stormid(activity, stuid):
     for i in activity:
         if i['DataType'] == '头脑风暴':
             print(f'【{index}】{i["Title"]}')
+            index += 1
             ids.append(i['Id'])
     target = ids[int(input("请选择序号：")) - 1]
     last_url = 'https://zjyapp.icve.com.cn/newmobileapi/faceTeach/getBrainStromStuInfo'
@@ -23,6 +25,7 @@ def get_stormid(activity, stuid):
     else:
         print(data['msg'])
         input("回车退出")
+
 
 def main(stuid):
     date = input("请输入需要改分的日期如(2020-5-20)：")

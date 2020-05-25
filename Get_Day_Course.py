@@ -21,16 +21,19 @@ def get_course(stuid, today=time.strftime("%Y-%m-%d", time.localtime())):
         courseNmae = []  # 课程名字
         classSection = []  # 第几节
         openClassId = []  # 开设班级
+        courseOpenId = []
         for i in range(courses):
             courseNmae.append(html[i]['courseName'])
             courseId.append(html[i]['Id'])
             classSection.append(html[i]['classSection'])
             openClassId.append(html[i]['openClassId'])
+            courseOpenId.append(html[i]['courseOpenId'])
         return {
             'courseId': courseId,
             'courseNmae': courseNmae,
             'classSection': classSection,
-            'openClassId': openClassId
+            'openClassId': openClassId,
+            'courseOpenId': courseOpenId
         }
 
 

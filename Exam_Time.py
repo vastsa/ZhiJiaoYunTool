@@ -17,6 +17,7 @@ def main(stuId):
     target = exams[int(input("请输入序号：")) - 1]
     examId = target['examId']
     examTermTimeId = target['examTermTimeId']
+    print("时间注意切换到英文输入！")
     starttime = input("请输入开始时间（2020-03-20 00:00:00）：")
     endtime = input("请输入结束时间（2020-03-20 00:00:00）：")
     teaid = getteaid(openClassId, courseOpenId)
@@ -24,12 +25,9 @@ def main(stuId):
     result_url = url + xdata
     result = requests.post(url=result_url).json()
     print(result['msg'])
-    sele = input("【1】返回首页\n【2】返回上级\n请选择：")
-    if sele == 2:
-        main(stuId)
-    else:
-        from Main import main as menu
-        menu()
+    input("回车后返回首页！")
+    from Main import main as menu
+    menu()
 
 
 if __name__ == '__main__':

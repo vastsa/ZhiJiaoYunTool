@@ -3,6 +3,7 @@ import requests
 from Get_All_Course import get_all_course
 from Get_Homework_Grade import get_homework_grade
 from Get_Homework_List import get_homework_list
+from Get_Tea_Id import getteaid
 
 
 def main(stuId):
@@ -25,7 +26,7 @@ def main(stuId):
             homeworkStuId = grades[target]['homeworkStuId']
         else:
             input("回车键后退出")
-    teaId = input("请输入教师ID")
+    teaId = getteaid(courseOpenId=courseOpenId, openClassId=openClassId)
     url = 'https://zjyapp.icve.com.cn/newmobileapi/homework/rejectHomework'
     data = {
         'homeworkStuId': homeworkStuId,
@@ -33,9 +34,6 @@ def main(stuId):
     }
     result = requests.post(url=url, data=data).json()
     print(result['msg'])
-    sele = input("【1】返回首页\n【2】返回上级\n请选择：")
-    if sele == 2:
-        main(stuId)
-    else:
-        from Main import main as menu
-        menu()
+    input("回车后返回首页！")
+    from Main import main as menu
+    menu()

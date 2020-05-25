@@ -17,6 +17,7 @@ def login():
     }
     # 发送登陆请求
     html = requests.post(url=login_url, data=login_data).json()
+    print(html)
     if html['code'] == -1:
         print(html['msg'])
         input("登陆失败！如果密码有英文请切换到英文输入。请重新登陆")
@@ -31,3 +32,7 @@ def login():
         except:
             input("登陆失败！如果密码有英文请切换到英文输入。请重新登陆")
             login()
+
+
+if __name__ == '__main__':
+    login()

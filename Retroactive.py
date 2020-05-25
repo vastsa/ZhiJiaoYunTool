@@ -5,8 +5,9 @@ from Get_Class_Activity import get_activity
 from Get_Day_Course import get_course
 
 
-def main(stuid,schoolid):
+def main(stuid, schoolid):
     print("【欢迎使用职教云补签助手】")
+    print("注意事项：修改之后课堂表现可看到结果，老师那边会显示已参与")
     print("                  By:Lan")
     date = input("请输入需要补签的日期如(2020-5-20)：")
     courses = get_course(stuid, date)
@@ -51,7 +52,7 @@ def main(stuid,schoolid):
                     if i['StuId'] == stuid:
                         SignStuId = i['SignStuId']
                 get_grade = input("请输入要改的分数（1-5）：")
-                if int(get_grade)<6:
+                if int(get_grade) < 6:
                     grade_url = 'https://zjyapp.icve.com.cn/newmobileapi/faceTeach/saveSignStuScore'
                     data = {
                         'signId': SignId,

@@ -15,7 +15,6 @@ def main(stuid):
     data = {
         'homeWorkId': homeworkId
     }
-    #html = requests.post(url=url, data=data).json()['data']
     html = requests.post(url=url, data=data).text
     html = html.replace('&nbsp;', '').replace('</span>', '').replace('</p>', '').replace('</font>', '').replace('<strong>', '').replace('</strong>', '').replace('<b>', '').replace('</b>', '').replace('<div>','').replace('</div>','').replace('<br>','').replace('<br/>','')
     html = re.sub('<p.*?>', "", html)
