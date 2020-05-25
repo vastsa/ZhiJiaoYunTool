@@ -1,5 +1,7 @@
-import time
 import json
+import time
+
+
 def Rinse(PreviewList):
     tihuana = {
         '0': 'A',
@@ -26,7 +28,7 @@ def Rinse(PreviewList):
         Title = item['title']
         dataJson = item['dataJson']
         try:
-            with open(f"{title}"+kzm, "a", encoding="utf-8") as file:
+            with open(f"{title}" + kzm, "a", encoding="utf-8") as file:
                 if item['queTypeName'] == "单选题":
                     dataJsons = json.loads(item['dataJson'])
                     Contents = ''
@@ -37,9 +39,9 @@ def Rinse(PreviewList):
                             key = '单选题答案:' + tihao + '.' + Content
                         Contents = Contents + tihao + '.' + Content + hhf
                     Contents = Contents + key
-                        #file.write('题目' + str(index) + ':' + Title + '\n' + '单选题答案：' + dataJson + '\n\n')
+                    # file.write('题目' + str(index) + ':' + Title + '\n' + '单选题答案：' + dataJson + '\n\n')
                     file.write('题目' + str(index) + ':' + Title + hhf + Contents + hhf + hhf)
-                    #file.write('题目' + str(index) + ':' + Title + '\n\n' + '单选题答案：' + dataJson + '\n\n')
+                    # file.write('题目' + str(index) + ':' + Title + '\n\n' + '单选题答案：' + dataJson + '\n\n')
                 if item['queTypeName'] == "多选题":
                     dataJsons = json.loads(item['dataJson'])
                     Contents = ''
@@ -65,6 +67,9 @@ def Rinse(PreviewList):
                 if item['queTypeName'] == "填空题(客观)":
                     y = item['answer']
                     file.write('题目' + str(index) + ':' + Title + hhf + hhf + '填空题(客观)答案：' + y + hhf + hhf)
+                if item['queTypeName'] == '填空题(主观)':
+                    y = item['answer']
+                    file.write('题目' + str(index) + ':' + Title + '\n\n' + '填空题(主观)答案：' + y + '\n\n')
                 index += 1
         except json.JSONDecodeError as e:
             print(PreviewList)
